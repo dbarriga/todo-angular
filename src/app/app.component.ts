@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'todo';
+  todos: Array<any> = [
+    {id: 1, content: 'Buy milk', completed: true},
+    {id: 2, content: 'Make bed', completed: false},
+  ];
+  todosCompleted = true;
+
+  constructor() {}
+
 }
