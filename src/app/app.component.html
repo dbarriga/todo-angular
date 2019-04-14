@@ -12,10 +12,11 @@
       <li class="list-group-item" *ngIf="todosCompleted === todo.completed">
         <span class="float-left">{{todo.content}}</span>
         <span *ngIf="!todo.completed" class="custom-control custom-checkbox float-right">
-          <input type="checkbox" class="custom-control-input" id="completed" (change)="todo.completed = true">
+          <input type="checkbox" class="custom-control-input" id="completed" (change)="completeTodo(todo.id)">
           <label class="custom-control-label" for="completed">Mark as completed</label>
         </span>
       </li>
+      
     </ng-container>
   </ul>
 </div>
