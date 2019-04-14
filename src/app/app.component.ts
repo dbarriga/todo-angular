@@ -7,9 +7,9 @@ import { AppService } from './app.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'todo';
+  todoInput = '';
   todos: Array<any>;
-  todosCompleted = true;
+  todosCompleted = false;
 
   constructor(private service: AppService) {}
 
@@ -19,6 +19,18 @@ export class AppComponent implements OnInit {
 
   completeTodo(id: number) {
     this.service.completeTodo(id).subscribe(data => this.todos = data);
+  }
+
+  addTodo() {
+    const todo = {
+      id: this.todos.length + 1,
+      content: this.todoInput,
+      completed: false
+    };
+    this.service.addTodo(todo).subscribe(data => {
+      this.todos = data;
+      this.todoInput = '';
+    });
   }
 
 }

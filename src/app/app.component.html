@@ -1,10 +1,13 @@
 <div class="container mt-5">
   <ul class="nav">
     <li class="nav-item" >
-      <a class="nav-link" [ngClass]="{'active': todosCompleted}" href="#" (click)="todosCompleted=true">Active</a>
+      <a class="nav-link" [ngClass]="{'active': !todosCompleted}" href="#" (click)="todosCompleted=false">Active</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [ngClass]="{'active': !todosCompleted}" href="#" (click)="todosCompleted=false">Pending</a>
+      <a class="nav-link" [ngClass]="{'active': todosCompleted}" href="#" (click)="todosCompleted=true">Completed</a>
+    </li>
+    <li>
+      <input type="text" class="form-control" id="example" placeholder="Enter todo" [(ngModel)]="todoInput" (keyup.enter)="addTodo()"/>
     </li>
   </ul>
   <ul class="list-group">
@@ -16,7 +19,7 @@
           <label class="custom-control-label" for="completed">Mark as completed</label>
         </span>
       </li>
-      
+
     </ng-container>
   </ul>
 </div>

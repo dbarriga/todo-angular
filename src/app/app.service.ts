@@ -11,13 +11,18 @@ export class AppService {
   ];
   constructor(private httpClient: HttpClient) {}
 
-  getTodos() {
+  getTodos(): Observable<any> {
     return of(this.todos);
   }
 
-  completeTodo(id: number) {
+  completeTodo(id: number): Observable<any> {
     const todo = this.todos.filter(item => item.id === id)[0];
     todo.completed = true;
+    return of(this.todos);
+  }
+
+  addTodo(todo: any): Observable<any> {
+    this.todos.push(todo);
     return of(this.todos);
   }
 }
