@@ -1,25 +1,42 @@
 <div class="container mt-5">
   <ul class="nav">
     <li class="nav-item" >
-      <a class="nav-link" [ngClass]="{'active': !todosCompleted}" href="#" (click)="todosCompleted=false">Active</a>
+      <a class="nav-link" [ngClass]="{'active': selected === 'all'}" href="#" (click)="selected='all'">All</a>
+    </li>
+    <li class="nav-item" >
+      <a class="nav-link" [ngClass]="{'active': selected === 'active'}" href="#" (click)="selected='active'">Active</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [ngClass]="{'active': todosCompleted}" href="#" (click)="todosCompleted=true">Completed</a>
+      <a class="nav-link" [ngClass]="{'active': selected === 'completed'}" href="#" (click)="selected='completed'">Completed</a>
     </li>
     <li>
       <input type="text" class="form-control" id="example" placeholder="Enter todo" [(ngModel)]="todoInput" (keyup.enter)="addTodo()"/>
     </li>
   </ul>
-  <ul class="list-group">
-    <ng-container *ngFor="let todo of todos">
-      <li class="list-group-item" *ngIf="todosCompleted === todo.completed">
+  <div [ngSwitch]="selected">
+    <ul class="list-group" *ngSwitchCase="'all'">
+      <li class="list-group-item" *ngFor="let todo of todos" [ngClass]="{'active-item': !todo.completed, 'completed-item': todo.completed}">
         <span class="float-left">{{todo.content}}</span>
-        <span *ngIf="!todo.completed" class="custom-control custom-checkbox float-right">
-          <input type="checkbox" class="custom-control-input" [id]="'completed'+todo.id" (change)="completeTodo(todo.id)" />
-          <label class="custom-control-label" [for]="'completed'+todo.id">Mark as completed</label>
-        </span>
       </li>
+    </ul>
+    <ul class="list-group" *ngSwitchCase="'active'">
+      <ng-container *ngFor="let todo of todos">
+        <li class="list-group-item" *ngIf="!todo.completed">
+          <span class="float-left">{{todo.content}}</span>
+          <span *ngIf="!todo.completed" class="custom-control custom-checkbox float-right">
+            <input type="checkbox" class="custom-control-input" [id]="'completed'+todo.id" (change)="completeTodo(todo.id)" />
+            <label class="custom-control-label" [for]="'completed'+todo.id">Mark as completed</label>
+          </span>
+        </li>
+      </ng-container>
+    </ul>
+    <ul class="list-group" *ngSwitchCase="'completed'">
+      <ng-container *ngFor="let todo of todos">
+        <li class="list-group-item" *ngIf="todo.completed">
+          <span class="float-left">{{todo.content}}</span>
+        </li>
 
-    </ng-container>
-  </ul>
+      </ng-container>
+    </ul>
+  </div>
 </div>

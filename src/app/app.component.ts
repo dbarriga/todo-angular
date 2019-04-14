@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
   todoInput = '';
   todos: Array<any>;
   todosCompleted = false;
+  selected = 'all';
 
   constructor(private service: AppService) {}
 
@@ -31,6 +32,10 @@ export class AppComponent implements OnInit {
       this.todos = data;
       this.todoInput = '';
     });
+  }
+
+  sort() {
+    this.todos.sort((a, b) => (a.completed > b.completed) ? 1 : -1);
   }
 
 }
